@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+</head>
+<body>
+<div class="box">
+    <div th:if="${alreadySignedIn}">
+        <h1>Welcome, <span class="name" th:text="${name}"></span>!</h1>
+        <a href="/signout"><div class="signOut">Sign Out</div></a>
+    </div>
+    <div th:unless="${alreadySignedIn}">
+        <h1>Welcome, <span style="font-weight: bold" class="name" th:text="${name}"></span>!</h1>
+        <a class="signInBtn" href="/auth/o2login"><div class="signIn">Sign In</div></a>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<style>
+    body{
+        font-family: 'Open Sans', sans-serif;
+        background: #63c1f6;
+        margin: 0 auto 0 auto;
+        width:100%;
+        text-align:center;
+        margin: 20px 0px 20px 0px;
+    }
+
+    p{
+        font-size:12px;
+        color:#ffffff;
+    }
+
+    span.name{
+        font-weight: bold;
+    }
+
+    h1{
+        margin-bottom: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size:1.25em;
+        font-weight: lighter;
+        color:#525252;
+    }
+
+    a:-webkit-any-link {
+        color: -webkit-link;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .box{
+        justify-content: center;
+        background:white;
+        width:300px;
+        border-radius:6px;
+        margin: 0 auto 0 auto;
+        padding:0px 0px 20px 0px;
+        border: #2980b9 4px solid;
+    }
+
+    .signOut{
+        background: #cc2e2e;
+        width:150px;
+        padding-top:5px;
+        padding-bottom:5px;
+        color:white;
+        border-radius:4px;
+        border: #a51414 1px solid;
+        margin: 0 auto;;
+        font-weight:800;
+        text-decoration: none;
+        font-size:0.9em;
+    }
+
+
+    .signIn:hover{
+        background: #07a94c;
+    }
+
+
+    .signIn{
+        background: #0ab52d;
+        width:150px;
+        padding-top:5px;
+        padding-bottom:5px;
+        color:white;
+        border-radius:4px;
+        border: #0b8a01 1px solid;
+        margin: 0 auto;
+        text-decoration: none;
+        font-weight:800;
+        font-size: 0.9em;
+    }
+
+    .signOut:hover{
+        background: #7a0101;
+    }
+</style>
+
