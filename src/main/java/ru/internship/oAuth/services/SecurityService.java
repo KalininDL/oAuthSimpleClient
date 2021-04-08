@@ -24,7 +24,7 @@ public class SecurityService {
     }
 
 
-    public void saveTokenInHTTPOnlyCookies(String token, int maxAge, HttpServletResponse response){
+    public void saveTokenInHTTPOnlyCookies(String token, int maxAge, HttpServletResponse response) {
         Cookie jwtTokenCookie = new Cookie("user-id", token);
         jwtTokenCookie.setMaxAge(maxAge);
         jwtTokenCookie.setHttpOnly(true);
@@ -32,7 +32,7 @@ public class SecurityService {
         response.addCookie(jwtTokenCookie);
     }
 
-    public void DeleteCoockies(HttpServletResponse response){
+    public void DeleteCoockies(HttpServletResponse response) {
         Cookie emptyCookie = new Cookie("user-id", null);
         emptyCookie.setMaxAge(0);
         emptyCookie.setHttpOnly(true);
@@ -40,7 +40,7 @@ public class SecurityService {
         response.addCookie(emptyCookie);
     }
 
-    public Boolean isSignedIn(HttpServletRequest request){
+    public Boolean isSignedIn(HttpServletRequest request) {
         String jwt = readServletCookie(request, "user-id");
         return jwt != null;
     }
@@ -53,7 +53,7 @@ public class SecurityService {
         else throw new JWTSecurityException("User has valid access token but was not previously registered!");
     }
 
-    public Boolean verifyIdToken(String token){
+    public Boolean verifyIdToken(String token) {
         return googleApiService.verifyIdToken(token);
     }
 
@@ -61,18 +61,17 @@ public class SecurityService {
         return googleApiService.verifyGoogleAccessToken(token);
     }
 
-    public String getToken(HttpServletRequest request){
+    public String getToken(HttpServletRequest request) {
         return readServletCookie(request, "user-id");
     }
 
-    private String readServletCookie(HttpServletRequest request, String name){
+    private String readServletCookie(HttpServletRequest request, String name) {
         try {
             return Arrays.stream(request.getCookies())
-                    .filter(cookie->name.equals(cookie.getName()))
+                    .filter(cookie -> name.equals(cookie.getName()))
                     .map(Cookie::getValue)
                     .findAny().orElse(null);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         }
     }

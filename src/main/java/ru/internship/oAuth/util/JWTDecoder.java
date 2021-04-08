@@ -6,7 +6,6 @@ import ru.internship.oAuth.model.JWTDecodedPayload;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Map;
 
 @Component
 public class JWTDecoder {

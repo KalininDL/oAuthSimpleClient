@@ -23,9 +23,9 @@ class UserServiceTest {
         userService.addNewUser(new User("Sergey", "sergey@email.com", "dffd"));
         User user = new User(
                 "118444746558514495912",
-                "Марина Королева",
+                "Ivan",
                 null,
-                "1//0c4EgXNXV3pMBCgYIARAAGAwSNwF-L9Irr0a_4Ylxglje3beKdG1W9V_ZUzDiakLzIHwj8l6GOkzDBjATDw6JlROJsJkUrkB0wL4"
+                "12424903493208314"
         );
         userService.addNewUser(user);
     }
@@ -35,19 +35,18 @@ class UserServiceTest {
 
     @Test
     public void getAllUser(){
-        userService.getAllUsers();
+        assertNotNull(userService.getAllUsers());
     }
 
 
     @Test
     public void getUserById(){
-        userService.findByID(1L);
+        assertNotNull(userService.findByID(1L));
     }
 
     @Test
     public void getUserByGoogleId(){
-        userService.findByGoogleID("118444746558514495912");
-        userService.getAllUsers();
+        assertEquals(userService.findByGoogleID("118444746558514495912").getRefresh_token(), "12424903493208314");
     }
 
 

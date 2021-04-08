@@ -18,7 +18,7 @@ public class HTTPRequestProvider {
     private final HttpClient httpClient;
 
 
-    public HTTPRequestProvider(){
+    public HTTPRequestProvider() {
         httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .build();
@@ -35,8 +35,7 @@ public class HTTPRequestProvider {
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return response;
-        }
-        catch (IOException | InterruptedException ioException){
+        } catch (IOException | InterruptedException ioException) {
             return null;
         }
     }
@@ -52,8 +51,7 @@ public class HTTPRequestProvider {
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return response;
-        }
-        catch (IOException | InterruptedException ioException){
+        } catch (IOException | InterruptedException ioException) {
             return null;
         }
     }
@@ -61,7 +59,7 @@ public class HTTPRequestProvider {
 
     private java.net.http.HttpRequest.BodyPublisher mapToDataConverter(Map<String, String> body) {
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<String, String> entry : body.entrySet()){
+        for (Map.Entry<String, String> entry : body.entrySet()) {
             if (builder.length() > 0) {
                 builder.append("&");
             }
@@ -72,8 +70,6 @@ public class HTTPRequestProvider {
         System.out.println(builder.toString());
         return HttpRequest.BodyPublishers.ofString(builder.toString());
     }
-
-
 
 
 }

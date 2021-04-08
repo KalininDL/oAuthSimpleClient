@@ -3,9 +3,12 @@ package ru.internship.oAuth.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.internship.oAuth.exceptions.JWTSecurityException;
-import ru.internship.oAuth.services.*;
+import ru.internship.oAuth.services.RegistrationService;
+import ru.internship.oAuth.services.SecurityService;
 import ru.internship.oAuth.util.GoogleAPIQueryBuilder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +42,7 @@ public class AuthController {
 
     @GetMapping("/home")
     public String getHomePage(HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("name","new user");
+        model.addAttribute("name", "new user");
         model.addAttribute("alreadySignedIn", false);
         try {
             if (securityService.isSignedIn(request)) {
@@ -47,24 +50,22 @@ public class AuthController {
                         securityService.getUserAuthentication(request).getName());
                 model.addAttribute("alreadySignedIn", true);
             }
-        }
-        catch (JWTSecurityException e){
+        } catch (JWTSecurityException e) {
             securityService.DeleteCoockies(response);
         }
         return "home";
     }
 
     @GetMapping("auth/google/callback")
-    public String callBackUri(@RequestParam String code, HttpServletResponse response, Model model)  {
-        if(code != null)
+    public String callBackUri(@RequestParam String code, HttpServletResponse response, Model model) {
+        if (code != null)
             try {
                 registrationService.GoogleSignIn(code, response);
                 return "redirect:/home";
-            }
-        catch (Exception e){
+            } catch (Exception e) {
                 model.addAttribute("error", e.getMessage());
                 return "error";
-        }
+            }
         return "redirect:/home";
     }
 
@@ -83,8 +84,7 @@ public class AuthController {
                         securityService.getUserAuthentication(request).getName());
                 model.addAttribute("alreadySignedIn", true);
             }
-        }
-        catch (JWTSecurityException e){
+        } catch (JWTSecurityException e) {
             securityService.DeleteCoockies(response);
         }
         return "signin";
