@@ -23,7 +23,8 @@ public class UserService {
     }
 
     public User addNewUser(User user) {
-        return userRepository.save(user);
+        User authedUser = userRepository.save(user);
+        return authedUser;
     }
 
     public void addNewGoogleUser(GoogleAccessObject googleAccessObject, GoogleUserObject googleUserObject) {

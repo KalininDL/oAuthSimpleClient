@@ -25,7 +25,7 @@ public class SecurityService {
 
 
     public void saveTokenInHTTPOnlyCookies(String token, int maxAge, HttpServletResponse response) {
-        Cookie jwtTokenCookie = new Cookie("user-id", token);
+        Cookie jwtTokenCookie = new Cookie("bearer", token);
         jwtTokenCookie.setMaxAge(maxAge);
         jwtTokenCookie.setHttpOnly(true);
         jwtTokenCookie.setPath("/");
@@ -33,7 +33,7 @@ public class SecurityService {
     }
 
     public void DeleteCoockies(HttpServletResponse response) {
-        Cookie emptyCookie = new Cookie("user-id", null);
+        Cookie emptyCookie = new Cookie("bearer", null);
         emptyCookie.setMaxAge(0);
         emptyCookie.setHttpOnly(true);
         emptyCookie.setPath("/");
@@ -41,7 +41,7 @@ public class SecurityService {
     }
 
     public Boolean isSignedIn(HttpServletRequest request) {
-        String jwt = readServletCookie(request, "user-id");
+        String jwt = readServletCookie(request, "bearer");
         return jwt != null;
     }
 
@@ -62,7 +62,7 @@ public class SecurityService {
     }
 
     public String getToken(HttpServletRequest request) {
-        return readServletCookie(request, "user-id");
+        return readServletCookie(request, "bearer");
     }
 
     private String readServletCookie(HttpServletRequest request, String name) {
