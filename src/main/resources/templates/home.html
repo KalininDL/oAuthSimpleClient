@@ -8,11 +8,15 @@
 <body>
 <div class="box">
     <div th:if="${alreadySignedIn}">
-        <h1>Welcome, <span class="name" th:text="${name}"></span>!</h1>
+        <h1>Welcome,
+            <span class="name" th:text="${name}"></span>!<br>
+        This is a home page</h1>
         <a href="/signout"><div class="signOut">Sign Out</div></a>
     </div>
     <div th:unless="${alreadySignedIn}">
-        <h1>Welcome, <span style="font-weight: bold" class="name" th:text="${name}"></span>!</h1>
+        <h1>Welcome,
+            <span style="font-weight: bold" class="name" th:text="${name}"></span>!<br>
+        This is a home page</h1>
         <a class="signInBtn" href="/auth/o2login"><div class="signIn">Sign In</div></a>
     </div>
 </div>
