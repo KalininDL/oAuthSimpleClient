@@ -17,6 +17,12 @@ public class JWTDecoder {
         this.jsonToObjectMapper = jsonToObjectMapper;
     }
 
+    /**
+     *
+     * @param token id-token
+     * @return decoded content of id token
+     * @throws IOException in case of parsing error
+     */
     public JWTDecodedPayload decode(String token) throws IOException {
         String[] chunks = token.split("\\.");
         Base64.Decoder decoder = Base64.getDecoder();

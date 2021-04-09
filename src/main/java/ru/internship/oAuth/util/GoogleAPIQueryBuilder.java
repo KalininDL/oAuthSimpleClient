@@ -1,13 +1,15 @@
 package ru.internship.oAuth.util;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+
+
 
 @Component
 @PropertySource(ignoreResourceNotFound=true,value="classpath:secrets.properties")
@@ -59,11 +61,20 @@ public class GoogleAPIQueryBuilder {
         return tokenQueryParams;
     }
 
+    /**
+     * Builds the query to the Google API
+     * @param ACCESS_TOKEN is a token received from Google API during the authentication process
+     * @return URI string
+     */
     public String buildClientInfoQuery(String ACCESS_TOKEN){
         return "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" +
                 ACCESS_TOKEN;
     }
 
+    /**
+     *
+     * @return URI to Google authentication page
+     */
     public String buildClientIdRedirectQuery(){
         return "redirect:https://accounts.google.com/o/oauth2/v2/auth?" +
                 "scope=" + SCOPE + "&" +
@@ -74,6 +85,7 @@ public class GoogleAPIQueryBuilder {
                 "redirect_uri=" + REDIRECT_URI + "&" +
                 "client_id=" + CLIENT_ID;
     }
+
 
     public String buildGooglePublicKeysQuery(){
         return "https://www.googleapis.com/oauth2/v3/certs";

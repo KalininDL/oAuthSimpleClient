@@ -10,6 +10,9 @@ import ru.internship.oAuth.model.JWTDecodedPayload;
 
 import java.io.IOException;
 
+/**
+ * Converts json object to different types of inner application objects
+ */
 @Component
 public class JSONToObjectMapper {
 

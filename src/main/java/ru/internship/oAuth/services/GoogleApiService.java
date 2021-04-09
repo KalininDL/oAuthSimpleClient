@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.internship.oAuth.model.GoogleAccessObject;
-import ru.internship.oAuth.model.GooglePublicKey;
 import ru.internship.oAuth.model.GoogleUserObject;
 import ru.internship.oAuth.model.JWTDecodedPayload;
 import ru.internship.oAuth.util.HTTPRequestProvider;
@@ -12,9 +11,6 @@ import ru.internship.oAuth.util.JSONToObjectMapper;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,12 +28,12 @@ public class GoogleApiService {
     public GoogleAccessObject getGoogleAccessObject(Map<String, String> body) throws Exception {
         String uri = "https://accounts.google.com/o/oauth2/token";
         HttpResponse<String> response = requestProvider.sendPostRequest(uri, body);
-        if (response.statusCode() == 400) throw new Exception("Error!");
+        if (response.statusCode() == 400) throw new Exception("Google returned 400");
 
         try {
             return jsonParser.jsonToGoogleAccessObject(response.body());
         } catch (JsonProcessingException e) {
-            throw new Exception("Error!");
+            throw new Exception("JSON Parsing error!");
         }
     }
 
@@ -64,21 +60,5 @@ public class GoogleApiService {
         HttpResponse<String> response = requestProvider.sendGetRequest(uri);
         return response.statusCode() == 200;
     }
-
-    public List<GooglePublicKey> getGooglePublicKeys(String uri) throws Exception {
-        List<GooglePublicKey> keys = new ArrayList<>();
-        HttpResponse<String> response = requestProvider.sendGetRequest(uri);
-        if (response.statusCode() == 400) throw new Exception("Error!");
-        try {
-            GooglePublicKey[] keysArray = jsonParser.jsonToGooglePublicKeys(response.body());
-            if (keysArray.length != 0) {
-                Collections.addAll(keys, keysArray);
-            }
-            return keys;
-        } catch (JsonProcessingException e) {
-            throw new Exception("Error!");
-        }
-    }
-
 
 }

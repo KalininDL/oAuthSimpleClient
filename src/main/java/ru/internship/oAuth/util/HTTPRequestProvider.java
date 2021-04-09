@@ -24,6 +24,11 @@ public class HTTPRequestProvider {
                 .build();
     }
 
+    /**
+     * Sends get request to the specified URI
+     * @param uri
+     * @return response
+     */
     public HttpResponse<String> sendGetRequest(String uri) {
         java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
                 .GET()
@@ -40,6 +45,12 @@ public class HTTPRequestProvider {
         }
     }
 
+    /**
+     * Sends get request to the specified URI with the map of parameters
+     * @param uri - URI
+     * @param body - Map of the parameters
+     * @return response
+     */
     public HttpResponse<String> sendPostRequest(String uri, Map<String, String> body) {
         java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
                 .POST(mapToDataConverter(body))
@@ -57,6 +68,11 @@ public class HTTPRequestProvider {
     }
 
 
+    /**
+     * Converts java.util.Map to the request body for the HTTP POST request
+     * @param body
+     * @return request body
+     */
     private java.net.http.HttpRequest.BodyPublisher mapToDataConverter(Map<String, String> body) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, String> entry : body.entrySet()) {

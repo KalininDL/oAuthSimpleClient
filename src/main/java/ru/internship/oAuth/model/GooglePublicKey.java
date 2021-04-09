@@ -1,5 +1,6 @@
 package ru.internship.oAuth.model;
 
+
 public class GooglePublicKey {
 
     String kid;

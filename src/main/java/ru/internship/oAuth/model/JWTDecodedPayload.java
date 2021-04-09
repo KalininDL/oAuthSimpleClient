@@ -1,6 +1,9 @@
 package ru.internship.oAuth.model;
 
 
+/**
+ * Data class for the decoded contents of JWT
+ */
 public class JWTDecodedPayload {
 
     private String sub;
